@@ -8,7 +8,7 @@
             "name": "Python: runserver.py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/runserver.py",
+            "program": "${workspaceFolder}/runserver.py"
         },
         {
             "name": "Python: Current File",
@@ -64,12 +64,12 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "hello_app.webapp"                
+                "FLASK_APP": "api.webapp"
             },
             "args": [
                 "run",
                 "--no-debugger",
-                "--no-reload"      // Remove to auto-reload modified pages
+                "--no-reload"
             ]
         },
         {
@@ -105,7 +105,7 @@
             "name": "Python: All debug Options",
             "type": "python",
             "request": "launch",
-            "pythonPath": "${config:python.pythonPath}",
+            "python": "${command:python.interpreterPath}",
             "program": "${file}",
             "module": "module.name",
             "env": {
@@ -120,6 +120,21 @@
             "debugOptions": [
                 "RedirectOutput"
             ]
+        },
+        {
+            "name": "Docker: Python - Flask",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "python": {
+                "pathMappings": [
+                    {
+                        "localRoot": "${workspaceFolder}",
+                        "remoteRoot": "/app"
+                    }
+                ],
+                "projectType": "flask"
+            }
         }
     ]
 }

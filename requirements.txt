@@ -1,1 +1,7 @@
-Flask
+# To ensure app dependencies are ported from your virtual environment/host machine into your container, run 'pip freeze > requirements.txt' in the terminal to overwrite this file
+flask==1.1.2
+flask_cors
+pymongo
+pickle-mixin
+flask_executor
+gunicorn==20.0.4
