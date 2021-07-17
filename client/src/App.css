@@ -32,7 +32,14 @@
 .main {
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  padding: 0px 20px;
+}
+
+.form_box {
+  font-size: 15pt;
+  display: flex;
+  flex-direction: column;
+  padding-right: 100px;
 }
 
 .container {

@@ -70,13 +70,15 @@ function App() {
     <div className="App">      
       <div className="App-header">
         <div className="form_box">
-          <label for="batch_select">Select an existing batch:</label>
-          <select id="batch_select" onChange={(e) => checkClassification(e.target.value)}>
-            {batches.map((b, i) => <option value={b.keyword} key={i}>{b.keyword}</option>)}
-          </select>
+          <label htmlFor="batch_select">Select an existing batch:</label>
+          <div>
+            <select id="batch_select" onChange={(e) => checkClassification(e.target.value)}>
+              {batches.map((b, i) => <option value={b.keyword} key={i}>{b.keyword}</option>)}
+            </select>
+          </div>
         </div>
         <div className="form_box">
-          <label for="keyword">Type submission name</label>
+          <label htmlFor="keyword">Type submission name</label>
           <div style={{ display: "flex"}}>
             <input id="keyword" type="text" value={keyword} onChange={e => setKeyword(e.target.value)} />
             <button onClick={() => submitBatch(keyword)}>Submit</button>
@@ -93,7 +95,7 @@ function App() {
         <div className="legend">
           <ul>
             <li><div className="legend-icon KWS_KERIDOS" />KWS_KERIDOS</li>
-            <li><div className="legend-icon KWS_KERIDOS_TG" />KWS_KERIDOS_TG</li>
+            <li><div className="legend-icon KWS_KERIDOS_YG" />KWS_KERIDOS_YG</li>
             <li><div className="legend-icon UNKNOWN" />UNKNOWN</li>
             <li><div className="legend-icon ERROR" />ERROR</li>
           </ul>
