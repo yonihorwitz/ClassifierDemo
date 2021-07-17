@@ -29,18 +29,57 @@
   color: #61dafb;
 }
 
+.main {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(8, 50px);
   grid-template-rows: repeat(5, 50px);
+  grid-gap: 3px;
+  margin: auto;
 }
 
 .gridItem {
   border: 1px #222222 solid;
+  border-radius: 2px;
+}
+
+.legend {
+  width: 200px;
+  margin-left: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: #222222 solid 1px;
+  background-color: #b4dbff;
+}
+.legend-icon {
+  border: 1px #222222 solid;
+  border-radius: 2px;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+.legend ul {
+  list-style: none;
+  padding-inline-start: 0px !important;
+}
+
+.legend li {
+  display: flex;
+  align-items: baseline;
 }
 
 .UNKNOWN {
   background-color: #aaaaaa;
+}
+.ERROR {
+  background-color: #ff7474;
 }
 .KWS_KERIDOS {
   background-color: #5dc76f;

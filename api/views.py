@@ -1,36 +1,15 @@
-from datetime import datetime
-from flask import Flask, render_template, request, Response, jsonify
+from flask import request, Response, jsonify
 from pymongo import errors
 from bson.json_util import dumps
 from . import app, db, executor
 import time
 import random
 
-# @app.route("/")
-# def home():
-#    return render_template("home.html")
-
-# @app.route("/about/")
-# def about():
-#    return render_template("about.html")
-
-# @app.route("/contact/")
-# def contact():
-#    return render_template("contact.html")
-
-# @app.route("/hello/")
-# @app.route("/hello/<name>")
-# def hello_there(name = None):
-#    return render_template(
-#        "hello_there.html",
-#        name=name,
-#        date=datetime.now()
-#    )
+NUM_ENTRIES = 32
 
 
 def classify(keyword):
-    for i in range(10):
-        print("Insert!", keyword)
+    for i in range(NUM_ENTRIES):
         label = "UNKNOWN"
         if random.randint(0, 1) == 1:
             label = "KWS_KERIDOS"
@@ -39,14 +18,8 @@ def classify(keyword):
         db.classifications.insert_one(
             {"index": i, "keyword": keyword, "label": label})
         time.sleep(1)
-    print("Done!")
     db.batches.find_one_and_update(
         {"keyword": keyword}, {'$set': {"status": "done"}})
-
-
-@ app.route("/api/data")
-def get_data():
-    return '{ \"message\": \"hello\" }'
 
 
 @ app.route("/submitBatch", methods=['POST'])
@@ -75,19 +48,15 @@ def getClassifications(keyword, length):
         if status != "done":
             try:
                 for insert_change in db.classifications.watch([{'$match': {'operationType': 'insert'}}]):
-                    # status = db.batches.find_one(
-                    #    {"keyword": keyword})["status"]
-                    #str = ""
-                    # if classes.count() > 0:
-                    #    str = ","
-                    #str = str + dumps(insert_change["fullDocument"])
-                    print(insert_change)
-                    yield bytes(dumps(insert_change["fullDocument"]), encoding='utf8')
+                    obj = insert_change["fullDocument"]
+                    print("Index", obj["index"])
+                    data = bytes(
+                        dumps(obj), encoding='utf8')
+                    if obj["index"] + 1 == NUM_ENTRIES:
+                        return data
+                    else:
+                        yield data
             except errors.PyMongoError as py_mongo_error:
                 print('Error in Mongo watch: %s' %
                       str(py_mongo_error))
     return Response(generate())
-
-    # print("Batch", batch)
-    # print("classes", dumps(classes))
-    # return
